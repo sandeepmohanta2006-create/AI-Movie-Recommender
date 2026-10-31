@@ -49,56 +49,37 @@ def get_movie_poster(title):
 
     except requests.RequestException:
         return None
-st.markdown("""
-<style>
-.stApp {
-    background: linear-gradient(135deg, #07111f, #142b4a);
-    color: white;
-}
-
-h1 {
-    color: #00d4ff;
-    text-align: center;
-    font-size: 42px;
-}
-
-h2, h3 {
-    color: #ffffff;
-}
-
-.stButton > button {
-    background-color: #00a8cc;
-    color: white;
-    border-radius: 10px;
-    border: none;
-    padding: 10px 20px;
-    font-weight: bold;
-}
-
-.stButton > button:hover {
-    background-color: #007f99;
-    color: white;
-}
-</style>
-""", unsafe_allow_html=True)
-
 # Custom Design
 st.markdown("""
 <style>
 .stApp {
-    background-color: #0F172A;
+    background: linear-gradient(135deg, #050816, #101b35, #172b4d);
     color: white;
 }
-h1, h2, h3, p, label {
+
+h1 {
+    color: #00d4ff !important;
+    text-align: center;
+    font-size: 45px;
+    font-weight: 800;
+}
+
+h2, h3, p, label {
     color: white !important;
 }
+
 div.stButton > button {
-    background-color: #2563EB;
-    color: white;
+    background: linear-gradient(90deg, #0077ff, #00d4ff);
+    color: white !important;
     border-radius: 10px;
     height: 45px;
     width: 100%;
     font-weight: bold;
+    border: none;
+}
+
+div.stButton > button:hover {
+    box-shadow: 0 0 15px #00d4ff;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -108,7 +89,6 @@ movies = pd.read_csv(
     Path(__file__).resolve().parent / "movies.csv",
     encoding="utf-8-sig"
 )
-
 movies = movies.reset_index(drop=True)
 
 # AI Recommendation Model
@@ -122,10 +102,17 @@ feature_matrix = vectorizer.fit_transform(movies["features"])
 similarity = cosine_similarity(feature_matrix)
 
 # Website Heading
-st.title("🎬 AI MOVIE RECOMMENDER")
-st.write("Find your next favourite movie with AI!")
+st.markdown("""
+<h1 style='text-align:center; color:#00D4FF;'>
+    🎬 WELCOME TO CINE AI
+</h1>
+<p style='text-align:center; font-size:18px;'>
+    Discover Movies You'll Love ❤️
+</p>
+""", unsafe_allow_html=True)
 
 st.divider()
+
 
 # Search Movie
 # Top Rated Movies
@@ -234,19 +221,13 @@ if st.button("🎬 Recommend Movies"):
         if index == movie_index:
             continue
 
-        other_genre = str(
-            movies.iloc[index]["genre"]
-        ).lower()
+        other_genre = str(movies.iloc[index]["genre"]).lower()
 
-        genre_match = (
-            1 if selected_genre == other_genre else 0
-        )
+        genre_match = 1 if selected_genre == other_genre else 0
 
         similarity_score = similarity[movie_index][index]
 
-        rating_score = (
-            float(movies.iloc[index]["rating"]) / 5
-        )
+        rating_score = float(movies.iloc[index]["rating"]) / 5
 
         final_score = (
             genre_match * 0.5
@@ -256,10 +237,7 @@ if st.button("🎬 Recommend Movies"):
 
         scores.append((index, final_score))
 
-    scores.sort(
-        key=lambda item: item[1],
-        reverse=True
-    )
+    scores.sort(key=lambda item: item[1], reverse=True)
 
     st.subheader("⭐ Recommended Movies")
 
@@ -272,20 +250,23 @@ if st.button("🎬 Recommend Movies"):
 
         movie = movies.iloc[index]
 
-        st.markdown(
-            f"### 🎬 {movie['title']}"
-        )
+        poster = get_movie_poster(movie["title"])
 
-        st.write(
-            f"⭐ Rating: {movie['rating']}/5"
-        )
+        col1, col2 = st.columns([1, 2])
 
-        st.write(
-            f"Genre: {movie['genre']}"
-        )
+        with col1:
+            if poster:
+                st.image(poster, use_container_width=True)
+            else:
+                st.write("🎬 Poster unavailable")
+
+        with col2:
+            st.markdown(f"### 🎬 {movie['title']}")
+            st.write(f"⭐ Rating: {movie['rating']}/5")
+            st.write(f"🎭 Genre: {movie['genre']}")
+            st.write(movie["description"])
 
         st.divider()
-
         count += 1
 
         if count == 5:
@@ -293,3 +274,33 @@ if st.button("🎬 Recommend Movies"):
 
     if count == 0:
         st.info("No similar movies found.")
+        # About Us Section
+st.divider()
+
+st.markdown("""
+<h2 style='text-align:center; color:#00D4FF;'>
+    ℹ️ About Us
+</h2>
+
+<p style='text-align:center; font-size:17px;'>
+    AI Movie Recommender is an intelligent movie recommendation
+    platform that helps users discover movies they may love.
+    It uses Machine Learning to suggest similar movies.
+</p>
+""", unsafe_allow_html=True)
+# Footer Section
+st.markdown("""
+<hr>
+
+<div style='text-align:center; color:#BBBBBB; padding:15px;'>
+
+    <h3 style='color:#00D4FF;'>🎬 CINE AI</h3>
+
+    <p>Discover Movies You'll Love ❤️</p>
+
+    <p>Developed as an AI Movie Recommendation Project</p>
+
+    <p>© 2026 CINE AI | All Rights Reserved</p>
+
+</div>
+""", unsafe_allow_html=True)
