@@ -121,7 +121,28 @@ div[data-testid="stVerticalBlockBorderWrapper"]:hover {
     box-shadow: 0 0 18px rgba(0, 212, 255, 0.35);
     transform: translateY(-4px);
 }
+/* Sidebar Design */
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #050816, #101b35, #172b4d);
+}
 
+[data-testid="stSidebar"] * {
+    color: white !important;
+}
+
+/* Sidebar Navigation */
+[data-testid="stSidebarNav"] a {
+    color: white !important;
+    border-radius: 10px;
+}
+
+[data-testid="stSidebarNav"] a:hover {
+    background-color: #0077ff !important;
+}
+
+[data-testid="stSidebarNav"] a[aria-current="page"] {
+    background-color: #0077ff !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -309,8 +330,46 @@ with st.container(border=True):
         st.markdown("### 📖 Story")
 
         st.write(movie_info["description"])
+        # Watchlist Feature
+
+if "watchlist" not in st.session_state:
+    st.session_state.watchlist = []
+
+if st.button("❤️ Add to Watchlist"):
+
+    if selected_movie not in st.session_state.watchlist:
+        st.session_state.watchlist.append(selected_movie)
+        st.success("Movie added to your Watchlist! ❤️")
+    else:
+        st.info("Movie is already in your Watchlist.")
 
 st.divider()
+# My Watchlist
+
+st.subheader("❤️ My Watchlist")
+
+def remove_from_watchlist(movie):
+    st.session_state.watchlist.remove(movie)
+
+if st.session_state.watchlist:
+
+    for movie in st.session_state.watchlist:
+
+        col1, col2 = st.columns([3, 1])
+
+        with col1:
+            st.write(f"🎬 {movie}")
+
+        with col2:
+            st.button(
+                "❌ Remove",
+                key=f"remove_{movie}",
+                on_click=remove_from_watchlist,
+                args=(movie,)
+            )
+
+else:
+    st.info("Your Watchlist is empty!")
 # Recommendation Button
 if st.button("🎬 Recommend Movies"):
 
