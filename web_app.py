@@ -2,11 +2,24 @@ import streamlit as st
 import requests
 import pandas as pd
 import os
+from pathlib import Path
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
-OMDB_API_KEY = os.getenv("OMDB_API_KEY", "")
+st.set_page_config(
+    page_title="AI Movie Recommender",
+    page_icon="🎬",
+    layout="centered"
+)
+
+# Load API Key
+try:
+    OMDB_API_KEY = st.secrets["OMDB_API_KEY"]
+except Exception:
+    OMDB_API_KEY = os.getenv("OMDB_API_KEY", "")
 
 
-# Fetch Movie Poster from OMDb API
+# Fetch Movie Poster
 def get_movie_poster(title):
 
     if not OMDB_API_KEY:
@@ -32,35 +45,6 @@ def get_movie_poster(title):
         return None
 
     except requests.RequestException:
-        return None
-from pathlib import Path
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import cosine_similarity
-
-st.set_page_config(
-    page_title="AI Movie Recommender",
-    page_icon="🎬",
-    layout="centered"
-)
-
-# Fetch Movie Poster from OMDb API
-def get_movie_poster(title):
-    try:
-        url = "https://www.omdbapi.com/"
-
-        params = {
-            "apikey": OMDB_API_KEY,
-            "t": title
-        }
-
-        response = requests.get(url, params=params, timeout=10)
-        data = response.json()
-
-        if data.get("Response") == "True":
-            poster = data.get("Poster")
-            if poster and poster != "N/A":
-                return poster
-
         return None
 
     except requests.RequestException:
