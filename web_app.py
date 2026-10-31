@@ -174,7 +174,10 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.divider()
-
+st.page_link(
+    "pages/2_my_watchlist.py",
+    label="❤️ My Watchlist"
+)
 
 # Search Movie
 # Top Rated Movies
