@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 import pandas as pd
-OMDB_API_KEY = "7a1e4115"
+import os
 from pathlib import Path
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
