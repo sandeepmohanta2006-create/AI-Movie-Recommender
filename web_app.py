@@ -174,11 +174,10 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.divider()
-st.page_link(
-    "pages/2_my_watchlist.py",
-    label="❤️ My Watchlist"
+st.markdown(
+    "<a href='#my-watchlist'>❤️ My Watchlist</a>",
+    unsafe_allow_html=True
 )
-
 # Search Movie
 # Top Rated Movies
 st.subheader("⭐ Top Rated Movies")
@@ -348,7 +347,7 @@ if st.button("❤️ Add to Watchlist"):
 
 st.divider()
 # My Watchlist
-
+st.markdown("<div id='my-watchlist'></div>", unsafe_allow_html=True)
 st.subheader("❤️ My Watchlist")
 
 def remove_from_watchlist(movie):
