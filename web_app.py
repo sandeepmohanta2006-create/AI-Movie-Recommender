@@ -2,6 +2,37 @@ import streamlit as st
 import requests
 import pandas as pd
 import os
+
+OMDB_API_KEY = os.getenv("OMDB_API_KEY", "")
+
+
+# Fetch Movie Poster from OMDb API
+def get_movie_poster(title):
+
+    if not OMDB_API_KEY:
+        return None
+
+    try:
+        url = "https://www.omdbapi.com/"
+
+        params = {
+            "apikey": OMDB_API_KEY,
+            "t": title
+        }
+
+        response = requests.get(url, params=params, timeout=10)
+        data = response.json()
+
+        if data.get("Response") == "True":
+            poster = data.get("Poster")
+
+            if poster and poster != "N/A":
+                return poster
+
+        return None
+
+    except requests.RequestException:
+        return None
 from pathlib import Path
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
