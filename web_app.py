@@ -20,6 +20,7 @@ except Exception:
 
 
 # Fetch Movie Poster
+@st.cache_data(ttl=86400)
 def get_movie_poster(title):
 
     if not OMDB_API_KEY:
@@ -49,14 +50,35 @@ def get_movie_poster(title):
 
     except requests.RequestException:
         return None
-# Custom Design
+## Custom Design
 st.markdown("""
+/* Search Bar Design */
+div[data-testid="stTextInput"] input {
+    background-color: #172b4d;
+    color: white !important;
+    border: 1px solid #00d4ff;
+    border-radius: 10px;
+}
+
+/* Dropdown Design */
+div[data-testid="stSelectbox"] div[data-baseweb="select"] {
+    background-color: #172b4d;
+    border-radius: 10px;
+}
+
+/* Input Focus Effect */
+div[data-testid="stTextInput"] input:focus {
+    border-color: #00d4ff;
+    box-shadow: 0 0 12px rgba(0, 212, 255, 0.5);
+}
 <style>
+
 .stApp {
     background: linear-gradient(135deg, #050816, #101b35, #172b4d);
     color: white;
 }
 
+/* Main Heading */
 h1 {
     color: #00d4ff !important;
     text-align: center;
@@ -64,10 +86,12 @@ h1 {
     font-weight: 800;
 }
 
+/* Other Headings */
 h2, h3, p, label {
     color: white !important;
 }
 
+/* Buttons */
 div.stButton > button {
     background: linear-gradient(90deg, #0077ff, #00d4ff);
     color: white !important;
@@ -76,11 +100,28 @@ div.stButton > button {
     width: 100%;
     font-weight: bold;
     border: none;
+    transition: all 0.3s ease;
 }
 
+/* Button Hover */
 div.stButton > button:hover {
-    box-shadow: 0 0 15px #00d4ff;
+    transform: scale(1.03);
+    box-shadow: 0 0 18px #00d4ff;
 }
+
+/* Movie Card Hover */
+div[data-testid="stVerticalBlockBorderWrapper"] {
+    border: 1px solid rgba(0, 212, 255, 0.25);
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+div[data-testid="stVerticalBlockBorderWrapper"]:hover {
+    border-color: #00d4ff;
+    box-shadow: 0 0 18px rgba(0, 212, 255, 0.35);
+    transform: translateY(-4px);
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -123,8 +164,21 @@ top_movies = movies.sort_values(
     ascending=False
 ).head(5)
 
-for index, movie in top_movies.iterrows():
-   st.write(f"🎬 {movie['title']} — ⭐ {movie['rating']}/5")
+cols = st.columns(5)
+
+for index, (_, movie) in enumerate(top_movies.iterrows()):
+
+    with cols[index]:
+
+        poster = get_movie_poster(movie["title"])
+
+        if poster:
+            st.image(poster, use_container_width=True)
+        else:
+            st.write("🎬 Poster unavailable")
+
+        st.markdown(f"**{movie['title']}**")
+        st.markdown(f"⭐ {movie['rating']}/5")
 # Genre Filter
 st.subheader("🎭 Filter by Genre")
 
@@ -138,7 +192,10 @@ selected_genre = st.selectbox(
 )
 
 # Search Movie
-search_text = st.text_input("🔍 Search Movie")
+search_text = st.text_input(
+    "🔍 Search Movie",
+    placeholder="Type movie name here..."
+)
 
 filtered_movies = movies.copy()
 
@@ -147,21 +204,50 @@ if selected_genre != "All Genres":
         filtered_movies["genre"] == selected_genre
     ]
 
-if search_text:
+if search_text.strip():
     filtered_movies = filtered_movies[
         filtered_movies["title"].str.contains(
-            search_text, case=False, na=False
+            search_text.strip(),
+            case=False,
+            na=False
         )
     ]
 
 matching_movies = filtered_movies["title"].tolist()
 
-if not matching_movies:
+# Search Results
+if matching_movies:
+    st.success(f"🎬 Found {len(matching_movies)} movies!")
+
+    if search_text.strip():
+        st.subheader("🔎 Search Results")
+
+        for _, movie in filtered_movies.head(5).iterrows():
+
+            with st.container(border=True):
+
+                col1, col2 = st.columns([1, 2])
+
+                poster = get_movie_poster(movie["title"])
+
+                with col1:
+                    if poster:
+                        st.image(poster, use_container_width=True)
+                    else:
+                        st.write("🎬 Poster unavailable")
+
+                with col2:
+                    st.markdown(f"### 🎬 {movie['title']}")
+                    st.write(f"⭐ Rating: {movie['rating']}/5")
+                    st.write(f"🎭 Genre: {movie['genre']}")
+
+        if len(matching_movies) > 5:
+            st.info("Showing first 5 results. Select your movie below.")
+
+else:
     st.warning("No movie found. Try another name.")
-    st.stop()
 
 # Movie Selection
-
 placeholder = "-- Select a Movie --"
 
 if "movie_choice" not in st.session_state:
@@ -189,23 +275,40 @@ if selected_movie == placeholder:
     st.stop()
 
 # Movie Details
+
 movie_info = movies[
     movies["title"] == selected_movie
 ].iloc[0]
 
+st.divider()
 st.subheader("🎥 Movie Details")
-# Display Movie Poster
-poster_url = get_movie_poster(selected_movie)
 
-if poster_url:
-    st.image(poster_url, width=250)
-else:
-    st.info("Movie poster not available.")
+with st.container(border=True):
 
-st.write("**Title:**", movie_info["title"])
-st.write("**Genre:**", movie_info["genre"])
-st.write("**Rating:**", str(movie_info["rating"]) + "/5")
-st.write("**Description:**", movie_info["description"])
+    col1, col2 = st.columns([1, 2])
+
+    poster_url = get_movie_poster(selected_movie)
+
+    with col1:
+        if poster_url:
+            st.image(poster_url, use_container_width=True)
+        else:
+            st.info("🎬 Poster not available.")
+
+    with col2:
+        st.markdown(f"## 🎬 {movie_info['title']}")
+
+        st.markdown(
+            f"⭐ **Rating:** {movie_info['rating']}/5"
+        )
+
+        st.markdown(
+            f"🎭 **Genre:** {movie_info['genre']}"
+        )
+
+        st.markdown("### 📖 Story")
+
+        st.write(movie_info["description"])
 
 st.divider()
 # Recommendation Button
