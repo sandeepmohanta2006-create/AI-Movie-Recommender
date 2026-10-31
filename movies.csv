@@ -1,0 +1,52 @@
+
+movie_id,title,genre,description,rating
+1,3 Idiots,Comedy,"Three engineering students learn about friendship and education.",4.8
+2,Chhichhore,Comedy,"Friends reunite and remember their college life.",4.5
+3,Dangal,Drama,"A father trains his daughters to become wrestling champions.",4.7
+4,Taare Zameen Par,Drama,"A teacher helps a child overcome learning difficulties.",4.6
+5,Krrish,Action,"A young man with special powers fights evil.",4.2
+6,Sholay,Action,"Two criminals help a retired officer fight a dangerous bandit.",4.6
+7,PK,Comedy,"An alien explores Earth and questions human beliefs.",4.5
+8,Baahubali,Action,"A brave warrior discovers his royal identity.",4.4
+9,Drishyam,Thriller,"A father tries to protect his family from a criminal investigation.",4.7
+10,Super 30,Drama,"A teacher helps poor students prepare for an engineering entrance exam.",4.4
+11,Hera Pheri,Comedy,"Three men get involved in a series of funny misunderstandings.",4.6
+12,War,Action,"Two skilled agents face each other in a dangerous mission.",4.1
+13,3 Idiots 2,Comedy,"A fictional continuation about friendship and college life.",4.0
+14,PK Returns,Comedy,"A fictional comedy about an alien visiting Earth again.",3.9
+15,Chak De India,Sports,"A former hockey player coaches a women's hockey team.",4.5
+16,Bhaag Milkha Bhaag,Sports,"An athlete overcomes hardships to become a champion runner.",4.4
+17,MS Dhoni The Untold Story,Sports,"A cricketer works hard to achieve his sporting dreams.",4.3
+18,Sultan,Sports,"A wrestler struggles to rebuild his career and personal life.",4.0
+19,Queen,Comedy,"A young woman travels alone and discovers independence.",4.3
+20,Zindagi Na Milegi Dobara,Drama,"Three friends take a road trip and learn about life.",4.4
+21,Andhadhun,Thriller,"A pianist becomes involved in a mysterious crime.",4.5
+22,Kahaani,Thriller,"A woman searches for her missing husband in Kolkata.",4.3
+23,Talaash,Thriller,"A police officer investigates a mysterious death.",4.0
+24,Special 26,Thriller,"A group carries out clever fake raids.",4.1
+25,Baby,Action,"An intelligence team works to stop terrorist threats.",4.0
+26,Uri The Surgical Strike,Action,"An Indian military team carries out a secret operation.",4.3
+27,Pathaan,Action,"A spy returns to stop a dangerous global threat.",3.8
+28,Jawan,Action,"A man fights corruption and seeks justice.",4.0
+29,Dhoom,Action,"Police pursue a gang of skilled motorcycle thieves.",3.8
+30,Dhoom 2,Action,"A clever thief challenges an experienced police officer.",3.9
+31,Don,Thriller,"A police officer becomes involved in a dangerous criminal identity.",4.0
+32,Don 2,Thriller,"A criminal plans a daring bank heist.",3.8
+33,Swades,Drama,"An Indian scientist returns to his village and helps its people.",4.4
+34,Wake Up Sid,Drama,"A young man learns responsibility and independence.",4.0
+35,Barfi,Romance,"A kind-hearted young man experiences friendship and love.",4.3
+36,Kal Ho Naa Ho,Romance,"Friends discover love, hope, and the importance of life.",4.2
+37,Veer Zaara,Romance,"Two people from different countries share a lasting love.",4.3
+38,DDLJ,Romance,"Two young people fall in love during a European trip.",4.5
+39,Bajrangi Bhaijaan,Drama,"A kind man helps a lost child return to her family.",4.5
+40,Secret Superstar,Drama,"A young girl pursues her dream of becoming a singer.",4.4
+41,English Vinglish,Drama,"A woman gains confidence while learning English.",4.3
+42,Stree,Horror Comedy,"A town faces a mysterious supernatural presence.",4.1
+43,Bhool Bhulaiyaa,Horror Comedy,"A family encounters strange events in an old mansion.",4.0
+44,Tumbbad,Horror,"A man searches for a mysterious hidden treasure.",4.4
+45,Raazi,Thriller,"An Indian woman works undercover during a period of conflict.",4.2
+46,Neerja,Drama,"A flight attendant shows courage during a hijacking.",4.4
+47,Article 15,Crime Drama,"A police officer investigates a disturbing crime.",4.2
+48,Drishyam 2,Thriller,"A family faces new challenges after a past crime.",4.3
+49,OMG,Comedy Drama,"A shopkeeper challenges religious beliefs after a disaster.",4.1
+50,Lagaan,Sports Drama,"Villagers challenge colonial officers to a cricket match.",4.4
