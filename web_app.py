@@ -999,6 +999,21 @@ st.markdown("""
         max-height: 160px !important;
     }
 }
+/* Cine AI Trailer Button */
 
+div[data-testid="stLinkButton"] a {
+    background: linear-gradient(135deg, #00d4ff, #0066ff) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 12px !important;
+    font-weight: bold !important;
+    transition: all 0.3s ease !important;
+}
+
+div[data-testid="stLinkButton"] a:hover {
+    background: linear-gradient(135deg, #0066ff, #00d4ff) !important;
+    box-shadow: 0 0 18px rgba(0, 212, 255, 0.6) !important;
+    transform: scale(1.03);
+}
 </style>
 """, unsafe_allow_html=True)
