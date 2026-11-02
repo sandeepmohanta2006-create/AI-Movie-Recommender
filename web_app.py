@@ -1015,5 +1015,21 @@ div[data-testid="stLinkButton"] a:hover {
     box-shadow: 0 0 18px rgba(0, 212, 255, 0.6) !important;
     transform: scale(1.03);
 }
+/* Mobile Trailer Button Fix */
+
+@media (max-width: 768px) {
+    div[data-testid="stLinkButton"] a {
+        background: linear-gradient(135deg, #00d4ff, #0066ff) !important;
+        color: #ffffff !important;
+        border: none !important;
+        border-radius: 12px !important;
+        font-weight: 700 !important;
+        box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4) !important;
+    }
+
+    div[data-testid="stLinkButton"] a p {
+        color: #ffffff !important;
+    }
+}
 </style>
 """, unsafe_allow_html=True)
