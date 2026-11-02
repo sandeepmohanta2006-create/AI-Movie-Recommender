@@ -816,6 +816,11 @@ with st.container(border=True):
         st.markdown("### 📖 Story")
 
         st.write(movie_info["description"])
+        st.link_button(
+            "▶ Watch Movie Trailer",
+            f"https://www.youtube.com/results?search_query={selected_movie.replace(' ', '+')}+official+trailer",
+            use_container_width=True
+        )
         # Watchlist Feature
 
 if "watchlist" not in st.session_state:
