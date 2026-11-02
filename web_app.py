@@ -37,6 +37,19 @@ st.markdown("""
         object-fit: contain !important;
     }
 }
+/* Movie Card Hover Zoom Animation */
+
+.netflix-card {
+    transition: transform 0.35s ease, box-shadow 0.35s ease !important;
+}
+
+@media (hover: hover) {
+    .netflix-card:hover {
+        transform: scale(1.06) !important;
+        box-shadow: 0 8px 25px rgba(0, 212, 255, 0.35) !important;
+        z-index: 10;
+    }
+}
 </style>
 """, unsafe_allow_html=True)
 
