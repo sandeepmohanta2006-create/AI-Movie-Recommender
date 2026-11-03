@@ -623,17 +623,38 @@ st.html("""
 }
 
 .cine-nav a {
+    display: inline-block;
     color: white;
     text-decoration: none;
     padding: 10px 18px;
     border-radius: 9px;
     font-size: 14px;
     font-weight: 600;
+    transition: 0.3s ease;
+    background-color: transparent;
 }
 
 .cine-nav a:hover {
-    background: #00d4ff;
     color: #050816;
+    background: linear-gradient(
+        110deg,
+        #00d4ff 35%,
+        white 50%,
+        #00d4ff 65%
+    );
+    background-size: 250% 100%;
+    animation: cineShine 0.8s ease;
+    box-shadow: 0 0 18px #00d4ff;
+    transform: translateY(-3px);
+}
+
+@keyframes cineShine {
+    from {
+        background-position: 100% 0;
+    }
+    to {
+        background-position: -100% 0;
+    }
 }
 </style>
 
@@ -645,6 +666,7 @@ st.html("""
 </div>
 """)
 
+st.divider()
 
 st.divider()
 
